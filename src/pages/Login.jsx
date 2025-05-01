@@ -1,11 +1,13 @@
-import React, { use } from "react";
-import { Link, Navigate, useNavigate } from "react-router";
+import React, { use, useState } from "react";
+import { Link, Navigate, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Login = () => {
 
     const {signInUser} = use(AuthContext)
     const navigate = useNavigate()
+    const location = useLocation()
+    const [error, setError] = useState("")
 
     const handleLogin = e => {
         e.preventDefault()
@@ -17,9 +19,9 @@ const Login = () => {
         .then(result => {
             const user = result.user;
             console.log(user)
-            navigate("/")
-        }).catch(error => {
-            alert(error.code, error.message)
+            navigate(location.state ? location.state : "/")
+        }).catch(() => {
+            setError("Invalid Password")
         })
     }
 
@@ -30,12 +32,13 @@ const Login = () => {
           <h1 className="text-2xl text-center font-bold">Login your account</h1>
           <form onSubmit={handleLogin} className="fieldset space-y-1">
             <label className="label">Email</label>
-            <input type="email" name="email" className="input bg-base-200 border-none" placeholder="Email" />
+            <input type="email" name="email" className="input bg-base-200 border-none" placeholder="Email" required />
             <label className="label">Password</label>
-            <input type="password" name="password" className="input bg-base-200 border-none" placeholder="Password" />
+            <input type="password" name="password" className="input bg-base-200 border-none" placeholder="Password" required />
             <div>
               <a className="link link-hover">Forgot password?</a>
             </div>
+            {error && <p className="text-xs text-red-500">{error}</p>}
             <button type="submit" className="btn btn-neutral mt-4">Login</button>
             <p className="font-semibold text-center pt-5">Dont’t Have An Account ? <Link className="text-secondary" to="/auth/signup">Register</Link></p>
           </form>
