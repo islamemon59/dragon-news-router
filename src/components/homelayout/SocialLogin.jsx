@@ -5,10 +5,20 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 const SocialLogin = () => {
 
-  const {setUser, signInWithGoogle} = use(AuthContext)
+  const {setUser, signInWithGoogle, signInWithGithub} = use(AuthContext)
 
   const handleGoogleLogin = () => {
     signInWithGoogle()
+    .then(result => {
+      const user = result.user
+      setUser(user)
+    }).catch(error => {
+      console.log(error)
+    })
+  }
+
+  const handleGithubLogin = () => {
+    signInWithGithub()
     .then(result => {
       const user = result.user
       setUser(user)
@@ -24,7 +34,7 @@ const SocialLogin = () => {
         <button onClick={handleGoogleLogin} className="btn btn-secondary btn-outline w-full">
           <FcGoogle size={24} /> Login with Google
         </button>
-        <button className="btn btn-outline btn-primary w-full">
+        <button onClick={handleGithubLogin} className="btn btn-outline btn-primary w-full">
           <FaGithub size={24} /> Login with Github
         </button>
       </div>
