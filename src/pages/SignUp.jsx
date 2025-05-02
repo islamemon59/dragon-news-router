@@ -11,7 +11,7 @@ const SignUp = () => {
   const handleRegister = (e) => {
     e.preventDefault();
     const form = e.target;
-    console.log(form);
+    // console.log(form);
     const name = form.name.value;
     if(name.length < 5){
         setNameError("Name should be more then 5 character")
@@ -20,7 +20,7 @@ const SignUp = () => {
     const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(name, photo, email, password);
+    // console.log(name, photo, email, password);
 
     createUser(email, password)
     .then(result => {

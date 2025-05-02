@@ -4,7 +4,7 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Login = () => {
 
-    const {signInUser} = use(AuthContext)
+    const {setUser, signInUser} = use(AuthContext)
     const navigate = useNavigate()
     const location = useLocation()
     const [error, setError] = useState("")
@@ -18,7 +18,8 @@ const Login = () => {
         signInUser(email, password)
         .then(result => {
             const user = result.user;
-            console.log(user)
+            // console.log(user)
+            setUser(user)
             navigate(location.state ? location.state : "/")
         }).catch(() => {
             setError("Invalid Password")

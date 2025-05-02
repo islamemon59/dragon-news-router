@@ -4,9 +4,7 @@ import { FaArrowLeft, FaEye, FaStar } from 'react-icons/fa';
 import { format } from 'date-fns';
 
 const NewsDetailCard = ({news}) => {
-
-    console.log(news)
-
+    // console.log(news)
     const {
         category_id,
         title,
