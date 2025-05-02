@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Outlet, useNavigation } from "react-router";
 import Header from "../components/Header";
 import LatestNews from "../components/LatestNews";
@@ -16,7 +16,9 @@ const HomeLayout = () => {
         <Header></Header>
         <section className="w-11/12 mx-auto my-3">
         {import.meta.env.VITE_name}
+          <Suspense fallback={<Loading></Loading>}>
           <LatestNews></LatestNews>
+          </Suspense>
         </section>
         <nav className="w-11/12 mx-auto my-3">
           <Navbar></Navbar>
